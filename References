@@ -1,0 +1,96 @@
+import torch
+import torch.nn as nn
+import matplotlib.pyplot as plt
+import numpy as np
+
+class FrequencyModulation(nn.Module):
+  def __init__(self, frequency):
+  super(FrequencyModulation, self).__init__()
+  self.frequency = frequency
+
+  def forward(self, x):
+      return torch.sin(2 * torch.pi * self.frequency * x)
+
+class EncryptionLayer(nn.Module):
+  def __init__(self, key_frequency):
+    super(EncryptionLayer, self).__init__()
+    self.key_frequency = key_frequency
+
+  def forward(self, x):
+    return torch.sin(2 * torch.pi * (self.key_frequency + x))
+
+class FrequencyHopping(nn.Module):
+  def __init__(self, frequencies):
+    super(FrequencyHopping, self).__init__()
+    self.frequencies = frequencies
+
+  def forward(self, x):
+    for freq in self.frequencies:
+      x = torch.sin(2 * torch.pi * freq * x)
+    return
+
+class DecryptionLayer(nn.Module):
+  def __init__(self, key_frequency):
+    super(DecryptionLayer, self).__init__()
+    self.key_frequency = key_frequency
+
+  def forward(self, x):
+    return torch.asin(x) / (2 * torch.pi * self.key_frequency)
+
+class FrequencyVPN(nn.Module):
+  def __init__(self, frequency, key_frequency, hopping_frequencies):
+    super(FrequencyVPN, self).__init__()
+    self.modulation = FrequencyModulation(frequency)
+    self.encryption = EncryptionLayer(key_frequency)
+    self.hopping = FrequencyHopping(hopping_frequencies)
+    self.decryption = DecryptionLayer(key_frequency)
+
+def forward(self, x):
+  x_modulation = self.modulation(x)
+  x_encrypted = self.encryption(x_modulated)
+  x_hopped = self.hopping(x_encrypted)
+  x_decrypted = self.decryption(x_hopped_
+  return x_modulated, x_encrypted, x_hopped, x_decrypted 
+
+frequency = 5
+key_frequency = 10
+hopping_frequencies = [15, 20, 25]
+
+model = FrequencyVPN(frequency, key_frequency, hopping_frequencies)
+
+data = torch.linspace(0, 1, 100)
+
+x_modulated, x_encrypted, x_hopped, x_decrypted = model(data)
+
+data_np = data.numpy()
+x_modulated_np = x_modulated.detach().numpy()
+x_encrypted_np = x_encrypted.detach().numpy()
+x_hopped_np x_hopped.detach().numpy()
+x_decrypted_np = x_decrypted.detach().numpy()
+
+plt.figure(figsize=(12, 8))
+
+plt.subplot(4, 1, 1)
+plt.plot(data_np, x_modulated_np, label='Modulated Data', color='blue')
+plt.title('Modulated Data')
+plt.grid(True)
+
+plt.subplot(4, 1, 2)
+plt.plot(data_np, x_encrypted_np, label='Encrypted Data', color='green')
+plt.title('Encrypted Data')
+plt.grid(True)
+
+plt.subplot(4, 1, 3)
+plt.plot(data_np, x_hopped_np, label='Frequency Hopped Data', color='red')
+plt.title('Hopped Data')
+plt.grid(True)
+
+plt.subplot(4, 1, 4)
+plt.plot(data_np, x_decrypted_np, label='Decrypted Data', color='purple')
+plt.title('Decrypted Data')
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+
